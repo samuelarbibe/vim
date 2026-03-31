@@ -2,6 +2,26 @@
 -- This is just pure lua so anything that doesn't
 -- fit in the normal config locations above can go here
 
+-- Terminal buffers open in normal mode (act like regular buffers)
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.cmd.stopinsert()
+  end,
+})
+
+vim.keymap.set("i", "jk", "<Esc>", { desc = "Exit insert mode" })
+
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.showbreak = "↪ "
+
+require("resession").setup({
+  extensions = {
+    terminal = {},
+  },
+})
+
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     local session_dir
